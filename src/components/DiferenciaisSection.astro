@@ -26,7 +26,7 @@ const icons = [
 
 <section
   class="section-padding"
-  style="background: var(--color-cream-200);"
+  style="background: var(--color-dark-950);"
   aria-labelledby="diferenciais-heading"
 >
   <div class="container-site">
@@ -36,7 +36,7 @@ const icons = [
       <div class="divider-elegant mb-8" style="margin-inline: auto; background: var(--color-gold-400);"></div>
       <h2
         id="diferenciais-heading"
-        style="color: var(--color-charcoal-800); font-family: var(--font-display);"
+        style="color: var(--color-cream-100); font-family: var(--font-display);"
       >
         {title}
       </h2>
@@ -48,7 +48,7 @@ const icons = [
         DIFERENCIAIS.map((item, index) => (
           <div
             class="group p-8 reveal"
-            style={`background: white; animation-delay: ${index * 80}ms;`}
+            style={`background: var(--color-dark-800); border: 1px solid rgba(201, 169, 110, 0.1); animation-delay: ${index * 80}ms;`}
             role="listitem"
           >
             <!-- Número editorial + ícone -->
@@ -76,13 +76,13 @@ const icons = [
 
             <!-- Título -->
             <h3
-              style="color: var(--color-charcoal-800); font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.25;"
+              style="color: var(--color-cream-100); font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.25;"
             >
               {item.title}
             </h3>
 
             <!-- Descrição -->
-            <p style="color: var(--color-charcoal-500); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.8;">
+            <p style="color: var(--color-cream-400); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.8;">
               {item.description}
             </p>
           </div>

@@ -59,6 +59,13 @@
   --color-nude-800: #7d5639;
   --color-nude-900: #5e3e29;
 
+  /* Dark luxury — fundo escuro quente premium */
+  --color-dark-950: #0d0b09;
+  --color-dark-900: #131009;
+  --color-dark-800: #1c1810;
+  --color-dark-700: #252015;
+  --color-dark-600: #332b1a;
+
   /* Charcoal frio — autoridade clínica */
   --color-charcoal-50:  #f6f6f7;
   --color-charcoal-100: #e1e2e4;
@@ -111,8 +118,8 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream-100);
-  color: var(--color-charcoal-800);
+  background-color: var(--color-dark-900);
+  color: var(--color-cream-200);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -124,7 +131,7 @@ h1, h2, h3, h4 {
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  color: var(--color-charcoal-800);
+  color: var(--color-cream-100);
 }
 
 h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); }
@@ -134,7 +141,7 @@ h4 { font-size: clamp(1.15rem, 2vw, 1.6rem); }
 
 p {
   font-family: var(--font-body);
-  color: var(--color-charcoal-500);
+  color: var(--color-cream-400);
   line-height: 1.75;
 }
 
@@ -160,7 +167,7 @@ img {
 
 /* ── Scrollbar customizada ────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--color-cream-200); }
+::-webkit-scrollbar-track { background: var(--color-dark-800); }
 ::-webkit-scrollbar-thumb {
   background: var(--color-gold-400);
   border-radius: var(--radius-pill);
@@ -187,12 +194,12 @@ img {
   }
 }
 
-/* Gradiente premium clínico */
+/* Gradiente premium dark luxury */
 .bg-premium {
   background: linear-gradient(
     135deg,
-    var(--color-cream-100) 0%,
-    var(--color-cream-200) 100%
+    var(--color-dark-900) 0%,
+    var(--color-dark-800) 100%
   );
 }
 
@@ -213,16 +220,18 @@ img {
   background-clip: text;
 }
 
-/* Card premium — fundo claro */
+/* Card premium — fundo dark */
 .card-premium {
-  background: white;
+  background: var(--color-dark-700);
   border-radius: var(--radius-lg);
+  border: 1px solid rgba(201, 169, 110, 0.12);
   box-shadow: var(--shadow-soft);
-  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
 }
 
 .card-premium:hover {
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-gold);
+  border-color: rgba(201, 169, 110, 0.3);
   transform: translateY(-2px);
 }
 
@@ -269,21 +278,21 @@ img {
   box-shadow: 0 6px 20px rgba(201,169,110,0.3);
 }
 
-/* Botão secundário — borda dourada sobre fundo claro */
+/* Botão secundário — borda dourada sobre fundo dark */
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 2.25rem;
   background: transparent;
-  color: var(--color-charcoal-700);
+  color: var(--color-cream-300);
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 0;
-  border: 1px solid var(--color-charcoal-300);
+  border: 1px solid rgba(201, 169, 110, 0.35);
   cursor: pointer;
   transition: all var(--transition-base);
   text-decoration: none;
@@ -291,24 +300,24 @@ img {
 
 .btn-secondary:hover {
   border-color: var(--color-gold-500);
-  color: var(--color-gold-600);
+  color: var(--color-gold-400);
   transform: translateY(-1px);
 }
 
-/* Botão hero secundário — sobre fundo claro */
+/* Botão hero secundário — sobre fundo dark */
 .btn-hero-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.9rem 2rem;
   background: transparent;
-  color: var(--color-charcoal-600);
+  color: var(--color-cream-300);
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid var(--color-charcoal-200);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transition: all var(--transition-base);
   text-decoration: none;
@@ -316,7 +325,7 @@ img {
 
 .btn-hero-secondary:hover {
   border-color: var(--color-gold-500);
-  color: var(--color-gold-600);
+  color: var(--color-gold-400);
   transform: translateY(-1px);
 }
 

@@ -35,7 +35,7 @@ const serviceIcons: Record<string, string> = {
 };
 ---
 
-<section class="section-padding" style="background: var(--color-cream-100);" aria-labelledby="services-heading">
+<section class="section-padding" style="background: var(--color-dark-900);" aria-labelledby="services-heading">
   <div class="container-site">
     <!-- Cabeçalho -->
     <div class="text-center mb-16 reveal">
@@ -43,12 +43,12 @@ const serviceIcons: Record<string, string> = {
       <div class="divider-elegant mb-8" style="margin-inline: auto;"></div>
       <h2
         id="services-heading"
-        style="color: var(--color-charcoal-800); font-family: var(--font-display); margin-bottom: 1.5rem;"
+        style="color: var(--color-cream-100); font-family: var(--font-display); margin-bottom: 1.5rem;"
       >
         Procedimentos que<br />
         <em style="color: var(--color-gold-600); font-style: italic;">transformam vidas</em>
       </h2>
-      <p class="max-w-xl mx-auto" style="color: var(--color-charcoal-400); font-family: var(--font-body); font-size: 0.95rem;">
+      <p class="max-w-xl mx-auto" style="color: var(--color-cream-400); font-family: var(--font-body); font-size: 0.95rem;">
         {subtitle}
       </p>
     </div>
@@ -70,7 +70,7 @@ const serviceIcons: Record<string, string> = {
           return (
             <article
               class="group reveal flex flex-col p-8"
-              style={`background: white; border-top: 2px solid var(--color-gold-400); box-shadow: var(--shadow-soft); transition: box-shadow 0.25s, transform 0.25s; animation-delay: ${index * 80}ms;`}
+              style={`background: var(--color-dark-700); border-top: 2px solid var(--color-gold-500); border-left: 1px solid rgba(201,169,110,0.1); border-right: 1px solid rgba(201,169,110,0.1); border-bottom: 1px solid rgba(201,169,110,0.1); box-shadow: var(--shadow-soft); transition: box-shadow 0.25s, transform 0.25s; animation-delay: ${index * 80}ms;`}
               role="listitem"
               aria-labelledby={`service-${service.id}`}
               onmouseenter="this.style.boxShadow='var(--shadow-medium)';this.style.transform='translateY(-3px)'"
@@ -80,13 +80,13 @@ const serviceIcons: Record<string, string> = {
               <div class="flex items-start justify-between mb-7">
                 <div
                   class="w-11 h-11 flex items-center justify-center"
-                  style="color: var(--color-gold-500); background: var(--color-gold-50); border: 1px solid var(--color-gold-200);"
+                  style="color: var(--color-gold-400); background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.25);"
                   aria-hidden="true"
                   set:html={svgIcon}
                 />
                 {hasHighlight && (
                   <span
-                    style="font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-gold-600); border: 1px solid var(--color-gold-300); padding: 0.25rem 0.6rem; background: var(--color-gold-50);"
+                    style="font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-gold-400); border: 1px solid rgba(201,169,110,0.3); padding: 0.25rem 0.6rem; background: rgba(201,169,110,0.08);"
                   >
                     {(service as any).highlight}
                   </span>
@@ -96,14 +96,14 @@ const serviceIcons: Record<string, string> = {
               <!-- Nome -->
               <h3
                 id={`service-${service.id}`}
-                style="color: var(--color-charcoal-800); font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; margin-bottom: 0.75rem; line-height: 1.2;"
+                style="color: var(--color-cream-100); font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; margin-bottom: 0.75rem; line-height: 1.2;"
               >
                 {service.name}
               </h3>
 
               <!-- Descrição curta -->
               <p
-                style="color: var(--color-charcoal-400); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.25rem;"
+                style="color: var(--color-cream-400); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.25rem;"
               >
                 {service.shortDescription}
               </p>
@@ -118,7 +118,7 @@ const serviceIcons: Record<string, string> = {
               <!-- Benefícios -->
               <ul class="space-y-2.5 mb-7 flex-1" aria-label={`Benefícios de ${service.name}`}>
                 {service.benefits.slice(0, 3).map((benefit) => (
-                  <li class="flex items-start gap-3" style="color: var(--color-charcoal-400); font-family: var(--font-body); font-size: 0.82rem;">
+                  <li class="flex items-start gap-3" style="color: var(--color-cream-400); font-family: var(--font-body); font-size: 0.82rem;">
                     <svg
                       class="mt-0.5 shrink-0"
                       width="12" height="12"
@@ -137,9 +137,9 @@ const serviceIcons: Record<string, string> = {
               <!-- Duração + CTA -->
               <div
                 class="flex items-center justify-between mt-auto pt-5"
-                style="border-top: 1px solid var(--color-cream-300);"
+                style="border-top: 1px solid rgba(201,169,110,0.15);"
               >
-                <span style="font-family: var(--font-body); font-size: 0.7rem; color: var(--color-charcoal-300); letter-spacing: 0.08em; text-transform: uppercase;">
+                <span style="font-family: var(--font-body); font-size: 0.7rem; color: var(--color-cream-500); letter-spacing: 0.08em; text-transform: uppercase;">
                   {service.duration}
                 </span>
                 <a

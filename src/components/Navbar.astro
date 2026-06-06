@@ -111,7 +111,7 @@ const { dark = false } = Astro.props;
   <div
     id="mobile-menu"
     class="md:hidden overflow-hidden transition-all duration-300"
-    style="max-height: 0; background: white;"
+    style="max-height: 0; background: var(--color-dark-900);"
     role="navigation"
     aria-label="Menu mobile"
     aria-hidden="true"
@@ -126,8 +126,8 @@ const { dark = false } = Astro.props;
               class:list={[
                 "text-base font-medium py-2 border-b transition-colors",
                 isActive
-                  ? "text-[--color-gold-600] border-[--color-gold-200]"
-                  : "text-[--color-charcoal-700] border-[--color-cream-300] hover:text-[--color-gold-500]",
+                  ? "border-[--color-gold-500]"
+                  : "border-[rgba(201,169,110,0.2)] hover:text-[--color-gold-400]",
               ]}
               aria-current={isActive ? "page" : undefined}
             >
@@ -173,14 +173,14 @@ const { dark = false } = Astro.props;
   const updateNavbar = () => {
     const scrolled = window.scrollY > 80;
     if (scrolled) {
-      navbarInner?.style.setProperty("background", "rgba(255, 252, 249, 0.97)");
+      navbarInner?.style.setProperty("background", "rgba(13, 11, 9, 0.95)");
       navbarInner?.style.setProperty("backdrop-filter", "blur(12px)");
-      navbarInner?.style.setProperty("border-bottom", "1px solid rgba(220, 201, 181, 0.4)");
-      navbarInner?.style.setProperty("box-shadow", "0 2px 20px rgba(180, 120, 100, 0.08)");
-      if (logoName) { logoName.style.color = lightLogoColor; }
+      navbarInner?.style.setProperty("border-bottom", "1px solid rgba(201, 169, 110, 0.15)");
+      navbarInner?.style.setProperty("box-shadow", "0 2px 20px rgba(0, 0, 0, 0.3)");
+      if (logoName) { logoName.style.color = darkLogoColor; }
       if (logoTagline) { logoTagline.style.color = "var(--color-gold-500)"; }
-      navLinks.forEach((l) => { l.style.color = lightNavColor; });
-      hamburgerLines.forEach((l) => { l.style.background = lightHamburger; });
+      navLinks.forEach((l) => { l.style.color = darkNavColor; });
+      hamburgerLines.forEach((l) => { l.style.background = darkHamburger; });
     } else {
       navbarInner?.style.setProperty("background", "transparent");
       navbarInner?.style.setProperty("backdrop-filter", "none");
