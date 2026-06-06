@@ -37,7 +37,7 @@ import { SITE } from "@data/site";
     </section>
 
     <!-- Contato principal -->
-    <section class="section-padding" aria-label="Formas de contato">
+    <section class="section-padding" style="background: var(--color-cream-100);" aria-label="Formas de contato">
       <div class="container-site">
         <div class="max-w-2xl mx-auto">
 
@@ -144,8 +144,9 @@ import { SITE } from "@data/site";
               style="background: var(--color-cream-100); border: 1px solid var(--color-cream-300);"
               aria-label="Horários de atendimento"
             >
-              <h3 class="font-serif text-lg mb-4" style="color: var(--color-charcoal-700);">
-                🕐 Horários de atendimento
+              <h3 class="font-serif text-lg mb-4 flex items-center gap-2" style="color: var(--color-charcoal-700);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-500)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Horários de atendimento
               </h3>
               <div class="space-y-2">
                 {SITE.hours.map(({ day, time }) => (
