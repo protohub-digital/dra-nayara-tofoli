@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Fundo charcoal arredondado -->
+  <rect width="32" height="32" rx="5" fill="#1C1C1E"/>
+  <!-- Letra N — paths geométricos -->
+  <!-- Barra esquerda -->
+  <rect x="5" y="9" width="2.5" height="14" fill="#C9A96E"/>
+  <!-- Diagonal N -->
+  <polygon points="5,9 7.5,9 14,21.5 14,23 11.5,23" fill="#C9A96E"/>
+  <!-- Barra direita N -->
+  <rect x="11.5" y="9" width="2.5" height="14" fill="#C9A96E"/>
+  <!-- Letra T -->
+  <!-- Barra horizontal T -->
+  <rect x="17" y="9" width="10" height="2.2" fill="#C9A96E"/>
+  <!-- Barra vertical T -->
+  <rect x="20.4" y="11.2" width="3.2" height="11.8" fill="#C9A96E"/>
+</svg>

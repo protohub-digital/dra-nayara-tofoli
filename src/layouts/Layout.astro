@@ -1,0 +1,240 @@
+---
+// ─────────────────────────────────────────────────────────────────────────────
+// Layout principal — integra GTM, Meta Pixel, Google Ads, Schema.org
+// ─────────────────────────────────────────────────────────────────────────────
+import "@styles/global.css";
+import { SITE } from "@data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title = SITE.seo.defaultTitle,
+  description = SITE.seo.defaultDescription,
+  image = SITE.seo.ogImage,
+  canonical = Astro.url.href,
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const fullTitle = title === SITE.seo.defaultTitle
+  ? title
+  : SITE.seo.titleTemplate.replace("%s", title);
+
+const ogImage = image.startsWith("http") ? image : `${SITE.url}${image}`;
+
+// Analytics IDs
+const { gtmId, ga4Id, metaPixelId, googleAdsId, tiktokPixelId } = SITE.analytics;
+
+// Schema padrão LocalBusiness
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": SITE.schema.type,
+  name: SITE.name,
+  description: SITE.seo.defaultDescription,
+  url: SITE.url,
+  telephone: SITE.schema.telephone,
+  email: SITE.email,
+  priceRange: SITE.schema.priceRange,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.state,
+    postalCode: SITE.address.zipCode,
+    addressCountry: "BR",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: SITE.schema.geo.latitude,
+    longitude: SITE.schema.geo.longitude,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "19:00",
+    },
+  ],
+  sameAs: [SITE.instagram],
+};
+
+const finalSchema = schema || defaultSchema;
+---
+
+<!doctype html>
+<html lang={SITE.lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- ── SEO básico ──────────────────────────────────────────────── -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.seo.keywords.join(", ")} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+    <!-- ── Open Graph ─────────────────────────────────────────────── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:site_name" content={SITE.name} />
+
+    <!-- ── Twitter Cards ──────────────────────────────────────────── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {SITE.seo.twitterHandle && (
+      <meta name="twitter:site" content={SITE.seo.twitterHandle} />
+    )}
+
+    <!-- ── Favicons ───────────────────────────────────────────────── -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=2" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="shortcut icon" href="/favicon.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#C9A96E" />
+    <meta name="msapplication-TileColor" content="#C9A96E" />
+
+    <!-- ── Performance hints ──────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {gtmId && <link rel="preconnect" href="https://www.googletagmanager.com" />}
+    {metaPixelId && <link rel="preconnect" href="https://connect.facebook.net" />}
+
+    <!-- ── Schema.org JSON-LD ─────────────────────────────────────── -->
+    <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+
+    <!-- ── Google Tag Manager (HEAD) — carregado condicionalmente ─── -->
+    {gtmId && (
+      <script
+        is:inline
+        define:vars={{ gtmId }}
+      >
+        // GTM — snippet oficial Google
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer', gtmId);
+      </script>
+    )}
+
+    <!-- ── Google Analytics 4 (fallback sem GTM) ─────────────────── -->
+    {ga4Id && !gtmId && (
+      <>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+        />
+        <script is:inline define:vars={{ ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ga4Id, { anonymize_ip: true });
+        </script>
+      </>
+    )}
+
+    <!-- ── Meta Pixel ─────────────────────────────────────────────── -->
+    {metaPixelId && (
+      <script is:inline define:vars={{ metaPixelId }}>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', metaPixelId);
+        fbq('track', 'PageView');
+      </script>
+    )}
+
+    <!-- ── Google Ads ─────────────────────────────────────────────── -->
+    {googleAdsId && (
+      <script is:inline define:vars={{ googleAdsId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', googleAdsId);
+      </script>
+    )}
+
+    <!-- ── TikTok Pixel ───────────────────────────────────────────── -->
+    {tiktokPixelId && (
+      <script is:inline define:vars={{ tiktokPixelId }}>
+        !function (w, d, t) {
+          w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+          ttq.load(tiktokPixelId);
+          ttq.page();
+        }(window, document, 'ttq');
+      </script>
+    )}
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <!-- ── GTM noscript fallback ───────────────────────────────────── -->
+    {gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+          title="Google Tag Manager"
+        />
+      </noscript>
+    )}
+
+    <!-- ── Meta Pixel noscript fallback ───────────────────────────── -->
+    {metaPixelId && (
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style="display:none"
+          src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+          alt=""
+        />
+      </noscript>
+    )}
+
+    <slot />
+
+    <!-- ── Script de scroll reveal global ─────────────────────────── -->
+    <script>
+      // Intersection Observer para animações ao scroll
+      const revealElements = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      );
+      revealElements.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

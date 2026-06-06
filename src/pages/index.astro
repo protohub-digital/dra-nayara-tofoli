@@ -1,0 +1,109 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Navbar from "@components/Navbar.astro";
+import Hero from "@components/Hero.astro";
+import AboutSection from "@components/AboutSection.astro";
+import DiferenciaisSection from "@components/DiferenciaisSection.astro";
+import ServicesGrid from "@components/ServicesGrid.astro";
+import GalleryGrid from "@components/GalleryGrid.astro";
+import TestimonialSection from "@components/TestimonialSection.astro";
+import CTASection from "@components/CTASection.astro";
+import FAQAccordion from "@components/FAQAccordion.astro";
+import BookingSection from "@components/BookingSection.astro";
+import MapSection from "@components/MapSection.astro";
+import FloatingWhatsApp from "@components/FloatingWhatsApp.astro";
+import Footer from "@components/Footer.astro";
+import { SITE } from "@data/site";
+---
+
+<Layout
+  title={SITE.seo.defaultTitle}
+  description={SITE.seo.defaultDescription}
+>
+  <Navbar />
+
+  <main id="main-content" tabindex="-1">
+    <!-- 1. Hero premium assimétrico -->
+    <Hero />
+
+    <!-- 2. Sobre a Dra. Nayara -->
+    <AboutSection compact={true} />
+
+    <!-- 3. Diferenciais clínicos -->
+    <DiferenciaisSection title="Por que escolher a Dra. Nayara?" />
+
+    <!-- 4. Procedimentos em destaque -->
+    <ServicesGrid featuredOnly={true} title="Procedimentos em Destaque" />
+
+    <!-- 6. CTA intermediário -->
+    <CTASection
+      title="Entrego sua melhor versão"
+      subtitle="Harmonização facial e otomoldação com técnica clínica de referência estadual. Agende sua avaliação e descubra o que é possível."
+      ctaText="Agendar avaliação"
+      variant="rose"
+    />
+
+    <!-- 7. Galeria de trabalhos -->
+    <GalleryGrid maxItems={6} showFilter={false} />
+
+    <!-- 7.5 Instagram CTA estratégico -->
+    <section
+      style="background: var(--color-charcoal-900); padding: 3rem 0;"
+      aria-label="Siga no Instagram"
+    >
+      <div class="container-site">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 reveal">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shrink-0"
+              style="background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);"
+              aria-hidden="true"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+            <div>
+              <p style="font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.35);">
+                Acompanhe os resultados
+              </p>
+              <p style="font-family: var(--font-display); font-size: 1.25rem; color: var(--color-gold-400); font-weight: 300;">
+                {SITE.instagramHandle}
+              </p>
+            </div>
+          </div>
+          <a
+            href={SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-7 py-3 rounded-full font-medium text-white transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 shrink-0"
+            style="background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.1em;"
+            aria-label={`Seguir ${SITE.instagramHandle} no Instagram`}
+          >
+            Seguir no Instagram
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Depoimentos de pacientes -->
+    <TestimonialSection />
+
+    <!-- 9. Agendamento online -->
+    <BookingSection />
+
+    <!-- 10. FAQ -->
+    <FAQAccordion maxItems={6} title="Dúvidas frequentes" />
+
+    <!-- 12. Mapa e localização -->
+    <MapSection />
+  </main>
+
+  <FloatingWhatsApp />
+  <Footer />
+</Layout>

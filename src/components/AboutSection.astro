@@ -1,0 +1,135 @@
+---
+import { ABOUT, SITE } from "@data/site";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<section class="section-padding" style="background: var(--color-cream-100);" aria-labelledby="about-heading">
+  <div class="container-site">
+    <div class="grid gap-16 lg:gap-20 items-center lg:grid-cols-2">
+
+      <!-- Coluna da imagem — moldura editorial -->
+      <div class="relative reveal order-2 lg:order-1">
+        <!-- Imagem principal -->
+        <div
+          class="relative overflow-hidden aspect-[4/5]"
+          style="z-index: 1;"
+          role="img"
+          aria-label={`Foto profissional de ${ABOUT.name}`}
+        >
+          <img
+            src="/images/profile/profile.jpg"
+            alt={`${ABOUT.name} — ${ABOUT.title}`}
+            class="w-full h-full object-cover object-top"
+            loading="lazy"
+            decoding="async"
+          />
+          <!-- Overlay suave no rodapé -->
+          <div
+            class="absolute bottom-0 left-0 right-0 p-6"
+            style="background: linear-gradient(to top, rgba(28,28,30,0.6), transparent);"
+            aria-hidden="true"
+          >
+            <p style="color: white; font-family: var(--font-display); font-size: 1.25rem; font-weight: 300;">{ABOUT.name}</p>
+            <p style="color: rgba(255,255,255,0.55); font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem;">{ABOUT.title}</p>
+          </div>
+        </div>
+
+        <!-- Moldura editorial dourada offset -->
+        <div
+          class="absolute hidden lg:block"
+          style="inset: -10px -10px 10px 10px; border: 1px solid var(--color-gold-300); z-index: 0; pointer-events: none;"
+          aria-hidden="true"
+        ></div>
+
+        <!-- Badge flutuante de credencial -->
+        <div
+          class="absolute -bottom-8 -right-4 z-20 p-5 animate-float"
+          style="background: var(--color-charcoal-800); border-top: 2px solid var(--color-gold-500);"
+          aria-label="CRO-ES 7253"
+        >
+          <p style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 300; color: var(--color-gold-400); line-height: 1;">{ABOUT.experience}</p>
+          <p style="font-family: var(--font-body); font-size: 0.65rem; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem;">anos de experiência</p>
+        </div>
+      </div>
+
+      <!-- Conteúdo textual -->
+      <div class="reveal order-1 lg:order-2">
+        <p class="section-label mb-5">Sobre a Dra. Nayara</p>
+        <div class="divider-elegant mb-8" style="margin-inline: 0; background: var(--color-gold-400);"></div>
+
+        <h2
+          id="about-heading"
+          style="color: var(--color-charcoal-800); font-family: var(--font-display); margin-bottom: 1.75rem;"
+        >
+          Autoridade clínica,<br />
+          <em style="color: var(--color-gold-600);">atendimento humano.</em>
+        </h2>
+
+        <!-- Bio -->
+        <div class="space-y-5 mb-10">
+          {ABOUT.bio.split("\n\n").filter(Boolean).map((paragraph) => (
+            <p style="color: var(--color-charcoal-500); font-family: var(--font-body); line-height: 1.85; font-size: 0.95rem;">
+              {paragraph.trim()}
+            </p>
+          ))}
+        </div>
+
+        <!-- Stats — 4 pilares -->
+        <div
+          class="grid grid-cols-2 sm:grid-cols-4 gap-px mb-10"
+          style="background: var(--color-cream-300);"
+          aria-label="Estatísticas da clínica"
+        >
+          {[
+            { value: ABOUT.experience, label: "Anos" },
+            { value: ABOUT.clients, label: "Pacientes" },
+            { value: ABOUT.countries, label: "Países" },
+            { value: "4,9 ⭐", label: "Google" },
+          ].map(({ value, label }) => (
+            <div class="text-center p-5" style="background: white;">
+              <p style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 300; color: var(--color-gold-600); line-height: 1; margin-bottom: 0.35rem;">{value}</p>
+              <p style="font-family: var(--font-body); font-size: 0.65rem; color: var(--color-charcoal-400); letter-spacing: 0.15em; text-transform: uppercase;">{label}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Certificações -->
+        {!compact && (
+          <div class="mb-10">
+            <div class="flex flex-wrap gap-2">
+              {ABOUT.certifications.map((cert) => (
+                <span
+                  style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.3rem 0.8rem; border: 1px solid var(--color-gold-300); color: var(--color-gold-700); background: var(--color-gold-50);"
+                >
+                  {cert}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SITE.whatsappMessage)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+          >
+            Agendar Avaliação
+          </a>
+          {!compact && (
+            <a href="/sobre" class="btn-secondary">
+              Conheça minha história
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

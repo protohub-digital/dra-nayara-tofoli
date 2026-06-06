@@ -1,0 +1,57 @@
+---
+import { COUNTRIES } from "@data/site";
+---
+
+<section
+  class="section-padding"
+  style="background: white; border-top: 1px solid var(--color-cream-300); border-bottom: 1px solid var(--color-cream-300);"
+  aria-labelledby="alcance-heading"
+>
+  <div class="container-site">
+    <div class="text-center reveal">
+      <!-- Label -->
+      <p class="section-label mb-5">Alcance Internacional</p>
+      <div class="divider-elegant mb-8" style="margin-inline: auto;"></div>
+
+      <!-- Título -->
+      <h2
+        id="alcance-heading"
+        style="color: var(--color-charcoal-800); font-family: var(--font-display); margin-bottom: 0.75rem;"
+      >
+        Pacientes de 6 países confiam<br />
+        <em style="color: var(--color-gold-600); font-style: italic;">na Dra. Nayara</em>
+      </h2>
+
+      <!-- Subtítulo -->
+      <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-charcoal-400); line-height: 1.7; margin-bottom: 4rem; max-width: 480px; margin-inline: auto;">
+        Uma referência em otomoldação que atravessou fronteiras.<br />
+        Da Suíça à Colômbia, a excelência chega onde a reputação não mente.
+      </p>
+
+      <!-- Países -->
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 reveal">
+        {COUNTRIES.map((country) => (
+          <div class="flex flex-col items-center gap-2 group">
+            <span
+              class="text-4xl transition-transform duration-300 group-hover:scale-110"
+              role="img"
+              aria-label={country.name}
+            >
+              {country.flag}
+            </span>
+            <span
+              style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-charcoal-400);"
+            >
+              {country.name}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Nota -->
+      <p style="font-family: var(--font-body); font-size: 0.75rem; color: var(--color-charcoal-300); margin-top: 3.5rem; letter-spacing: 0.05em;">
+        Pacientes que viajaram especialmente para ser atendidos pela Dra. Nayara em Colatina, ES.
+      </p>
+    </div>
+  </div>
+</section>

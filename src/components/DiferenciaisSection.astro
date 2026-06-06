@@ -1,0 +1,93 @@
+---
+import { DIFERENCIAIS } from "@data/site";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Por que escolher a Dra. Nayara?" } = Astro.props;
+
+// SVG icons por diferencial
+const icons = [
+  // 01 — Referência Estadual
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+  // 02 — Alcance Internacional
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  // 03 — Google
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>`,
+  // 04 — Formação
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+  // 05 — NT Lifting
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`,
+  // 06 — Humanizado
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+];
+---
+
+<section
+  class="section-padding"
+  style="background: var(--color-cream-200);"
+  aria-labelledby="diferenciais-heading"
+>
+  <div class="container-site">
+    <!-- Cabeçalho -->
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-5" style="color: var(--color-gold-600);">Diferenciais</p>
+      <div class="divider-elegant mb-8" style="margin-inline: auto; background: var(--color-gold-400);"></div>
+      <h2
+        id="diferenciais-heading"
+        style="color: var(--color-charcoal-800); font-family: var(--font-display);"
+      >
+        {title}
+      </h2>
+    </div>
+
+    <!-- Grid de diferenciais — 3 colunas com números editoriais -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" role="list">
+      {
+        DIFERENCIAIS.map((item, index) => (
+          <div
+            class="group p-8 reveal"
+            style={`background: white; animation-delay: ${index * 80}ms;`}
+            role="listitem"
+          >
+            <!-- Número editorial + ícone -->
+            <div class="flex items-start justify-between mb-6">
+              <span
+                class="editorial-number"
+                aria-hidden="true"
+              >
+                {item.icon}
+              </span>
+              <span
+                class="mt-1"
+                style="color: var(--color-gold-500);"
+                aria-hidden="true"
+                set:html={icons[index] || icons[0]}
+              />
+            </div>
+
+            <!-- Linha dourada -->
+            <div
+              class="mb-5 transition-all duration-300 group-hover:w-12"
+              style="width: 24px; height: 1px; background: var(--color-gold-400);"
+              aria-hidden="true"
+            ></div>
+
+            <!-- Título -->
+            <h3
+              style="color: var(--color-charcoal-800); font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.25;"
+            >
+              {item.title}
+            </h3>
+
+            <!-- Descrição -->
+            <p style="color: var(--color-charcoal-500); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.8;">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

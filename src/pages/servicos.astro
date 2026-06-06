@@ -1,0 +1,172 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro";
+import FloatingWhatsApp from "@components/FloatingWhatsApp.astro";
+import CTASection from "@components/CTASection.astro";
+import BookingSection from "@components/BookingSection.astro";
+import { SERVICES, SITE } from "@data/site";
+
+const serviceImages: Record<string, string> = {
+  "harmonizacao-full-face": "/images/gallery/harmonizacao-full-face-1.jpg",
+  "otomoldacao": "/images/gallery/harmonizacao-antes-depois-2.jpg",
+  "nt-lifting": "/images/gallery/lifting-antes-depois-1.jpg",
+  "botox": "/images/gallery/harmonizacao-botox-antes-depois-1.jpg",
+  "bioestimuladores": "/images/gallery/harmonizacao-antes-depois-2.jpg",
+  "perfiloplastia": "/images/gallery/perfiloplastia-antes-depois-1.jpg",
+  "harmonizacao-masculina": "/images/gallery/harmonizacao-masculina-antes-depois-1.jpg",
+};
+---
+
+<Layout
+  title="Serviços"
+  description="Conheça os procedimentos da Dra. Nayara Tofoli: harmonização facial, otomoldação, NT Lifting, botox, bioestimuladores e perfiloplastia em Colatina, ES. CRO-ES 7253."
+>
+  <Navbar />
+
+  <main id="main-content" tabindex="-1">
+    <!-- Hero da página -->
+    <section
+      class="pt-36 pb-20"
+      style="background: linear-gradient(135deg, var(--color-charcoal-900) 0%, var(--color-charcoal-800) 100%);"
+      aria-labelledby="services-page-heading"
+    >
+      <div class="container-site text-center">
+        <p class="section-label mb-4" style="color: var(--color-gold-400);">Especialidades</p>
+        <div class="divider-elegant mb-6"></div>
+        <h1
+          id="services-page-heading"
+          class="font-serif"
+          style="color: white; font-size: clamp(2rem, 5vw, 4rem);"
+        >
+          Nossos Serviços
+        </h1>
+        <p class="mt-4 max-w-lg mx-auto" style="color: rgba(255,255,255,0.6);">
+          Procedimentos exclusivos para realçar sua beleza natural com segurança e sofisticação.
+        </p>
+      </div>
+    </section>
+
+    <!-- Todos os serviços detalhados -->
+    <section class="section-padding" aria-label="Lista completa de serviços">
+      <div class="container-site">
+        <div class="space-y-24">
+          {SERVICES.map((service, index) => {
+            const isEven = index % 2 === 0;
+            const whatsappMsg = encodeURIComponent(`Olá, Dra. Nayara! Gostaria de agendar uma avaliação para ${service.name}.`);
+            const whatsappUrl = `https://wa.me/${SITE.whatsapp}?text=${whatsappMsg}`;
+            const serviceImg = serviceImages[service.id] || "/images/gallery/procedimento-ambiente-1.jpg";
+
+            return (
+              <article
+                id={service.slug}
+                class="grid gap-12 lg:grid-cols-2 items-center reveal"
+                aria-labelledby={`service-detail-${service.id}`}
+              >
+                <!-- Imagem (alternada) -->
+                <div class={`${isEven ? "lg:order-1" : "lg:order-2"} relative`}>
+                  <div
+                    class="overflow-hidden aspect-square"
+                    style="border-top: 3px solid var(--color-gold-400);"
+                    role="img"
+                    aria-label={`Imagem: ${service.name}`}
+                  >
+                    <img
+                      src={serviceImg}
+                      alt={`${service.name} — resultado`}
+                      style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+
+                  <!-- Badge de duração -->
+                  <div
+                    class="absolute bottom-6 left-6 bg-white rounded-xl px-4 py-2.5"
+                    style="box-shadow: var(--shadow-medium);"
+                    aria-label={`Duração: ${service.duration}`}
+                  >
+                    <span class="text-xs font-medium" style="color: var(--color-charcoal-500);">⏱ Duração:</span>
+                    <span class="text-sm font-semibold ml-1" style="color: var(--color-charcoal-700);">{service.duration}</span>
+                  </div>
+                </div>
+
+                <!-- Conteúdo -->
+                <div class={isEven ? "lg:order-2" : "lg:order-1"}>
+                  <h2
+                    id={`service-detail-${service.id}`}
+                    class="font-serif mb-4"
+                    style="color: var(--color-charcoal-800); font-size: clamp(1.5rem, 3vw, 2.25rem);"
+                  >
+                    {service.name}
+                  </h2>
+
+                  <p class="mb-6 leading-relaxed" style="color: var(--color-charcoal-500);">
+                    {service.description}
+                  </p>
+
+                  <!-- Benefícios completos -->
+                  <div class="mb-8">
+                    <h3
+                      class="text-sm font-semibold mb-4 tracking-wide uppercase"
+                      style="color: var(--color-charcoal-600);"
+                    >
+                      Benefícios
+                    </h3>
+                    <ul class="space-y-3">
+                      {service.benefits.map((benefit) => (
+                        <li class="flex items-start gap-3 text-sm" style="color: var(--color-charcoal-500);">
+                          <svg
+                            class="mt-0.5 shrink-0"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            style="color: var(--color-gold-500);"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- CTA -->
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-primary"
+                    aria-label={`${service.ctaText} — ${service.name}`}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    {service.ctaText}
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de agendamento -->
+    <BookingSection />
+
+    <!-- CTA final -->
+    <CTASection
+      title="Ainda tem dúvidas?"
+      subtitle="Fale diretamente comigo pelo WhatsApp e tire todas as suas dúvidas antes de agendar."
+      ctaText="Tirar dúvidas pelo WhatsApp"
+    />
+  </main>
+
+  <FloatingWhatsApp />
+  <Footer />
+</Layout>

@@ -1,0 +1,139 @@
+---
+import { GALLERY_ITEMS } from "@data/site";
+
+interface Props {
+  maxItems?: number;
+  showFilter?: boolean;
+}
+
+const { maxItems = 8, showFilter = true } = Astro.props;
+const items = GALLERY_ITEMS.slice(0, maxItems);
+const categories = ["todos", ...new Set(GALLERY_ITEMS.map((i) => i.category))];
+
+const categoryLabels: Record<string, string> = {
+  todos: "Todos",
+  hof: "Harmonização",
+  facial: "Procedimentos",
+};
+---
+
+<section class="section-padding" style="background: var(--color-cream-200);" aria-labelledby="gallery-heading">
+  <div class="container-site">
+    <!-- Cabeçalho -->
+    <div class="text-center mb-12 reveal">
+      <p class="section-label mb-5">Portfólio</p>
+      <div class="divider-elegant mb-8" style="margin-inline: auto;"></div>
+      <h2
+        id="gallery-heading"
+        style="color: var(--color-charcoal-800); font-family: var(--font-display);"
+      >
+        Galeria de<br />
+        <em style="color: var(--color-gold-600); font-style: italic;">transformações</em>
+      </h2>
+    </div>
+
+    <!-- Filtros de categoria -->
+    {showFilter && (
+      <div
+        class="flex flex-wrap justify-center gap-3 mb-10 reveal"
+        role="group"
+        aria-label="Filtrar galeria por categoria"
+      >
+        {categories.map((cat) => (
+          <button
+            class="filter-btn text-sm transition-all duration-200"
+            data-filter={cat}
+            aria-pressed={cat === "todos"}
+            style={
+              cat === "todos"
+                ? "background: var(--color-gold-500); color: white; padding: 0.4rem 1.25rem; border: 1px solid var(--color-gold-500); font-family: var(--font-body); letter-spacing: 0.08em; font-size: 0.75rem; text-transform: uppercase;"
+                : "background: white; color: var(--color-charcoal-500); border: 1px solid var(--color-cream-300); padding: 0.4rem 1.25rem; font-family: var(--font-body); letter-spacing: 0.08em; font-size: 0.75rem; text-transform: uppercase;"
+            }
+          >
+            {categoryLabels[cat] || cat}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <!-- Grid da galeria com imagens reais -->
+    <div
+      id="gallery-grid"
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+      role="list"
+      aria-label="Galeria de transformações"
+    >
+      {
+        items.map((item, index) => (
+          <figure
+            class="gallery-item group relative overflow-hidden cursor-pointer reveal"
+            data-category={item.category}
+            role="listitem"
+            style={`animation-delay: ${index * 60}ms; aspect-ratio: 3/4;`}
+            tabindex="0"
+            aria-label={item.alt}
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s ease;"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <!-- Overlay com caption -->
+            <figcaption
+              class="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style="background: linear-gradient(to top, rgba(28,28,30,0.75) 0%, transparent 55%);"
+            >
+              <p style="color: white; font-family: var(--font-body); font-size: 0.8rem; line-height: 1.4;">
+                {item.alt}
+              </p>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <!-- Link para galeria completa -->
+    <div class="text-center mt-10 reveal">
+      <a href="/galeria" class="btn-secondary">
+        Ver galeria completa
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const galleryItems = document.querySelectorAll<HTMLElement>(".gallery-item");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter || "todos";
+      filterBtns.forEach((b) => {
+        const isActive = b === btn;
+        b.setAttribute("aria-pressed", String(isActive));
+        b.style.cssText = isActive
+          ? "background: var(--color-gold-500); color: white; padding: 0.4rem 1.25rem; border: 1px solid var(--color-gold-500); font-family: var(--font-body); letter-spacing: 0.08em; font-size: 0.75rem; text-transform: uppercase;"
+          : "background: white; color: var(--color-charcoal-500); border: 1px solid var(--color-cream-300); padding: 0.4rem 1.25rem; font-family: var(--font-body); letter-spacing: 0.08em; font-size: 0.75rem; text-transform: uppercase;";
+      });
+      galleryItems.forEach((item) => {
+        const cat = item.dataset.category || "";
+        const visible = filter === "todos" || cat === filter;
+        item.style.display = visible ? "" : "none";
+      });
+    });
+  });
+
+  // Hover scale on img
+  galleryItems.forEach((item) => {
+    const img = item.querySelector('img');
+    if (!img) return;
+    item.addEventListener("mouseenter", () => { img.style.transform = "scale(1.05)"; });
+    item.addEventListener("mouseleave", () => { img.style.transform = "scale(1)"; });
+  });
+</script>

@@ -1,0 +1,221 @@
+---
+import { TESTIMONIALS } from "@data/site";
+---
+
+<section
+  class="section-padding"
+  style="background: var(--color-charcoal-800);"
+  aria-labelledby="testimonials-heading"
+>
+  <div class="container-site">
+    <!-- Cabeçalho -->
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-5" style="color: var(--color-gold-500);">Depoimentos</p>
+      <div class="divider-elegant mb-8" style="background: var(--color-gold-500); margin-inline: auto;"></div>
+      <h2
+        id="testimonials-heading"
+        style="color: white; font-family: var(--font-display);"
+      >
+        O que os pacientes<br />
+        <em style="color: var(--color-gold-400); font-style: italic;">dizem sobre a Dra. Nayara</em>
+      </h2>
+    </div>
+
+    <!-- Carrossel de depoimentos -->
+    <div
+      id="testimonials-track"
+      class="relative overflow-hidden"
+      aria-roledescription="carrossel"
+      aria-label="Depoimentos de pacientes"
+    >
+      <div
+        id="testimonials-inner"
+        class="flex gap-5 transition-transform duration-500 ease-in-out"
+        style="will-change: transform;"
+      >
+        {
+          TESTIMONIALS.map((testimonial, index) => (
+            <article
+              class="relative flex-none w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] flex flex-col p-8"
+              style="background: rgba(255,255,255,0.04); border: 1px solid rgba(201,169,110,0.2);"
+              aria-label={`Depoimento de ${testimonial.name}`}
+              id={`testimonial-${index}`}
+            >
+              <!-- Aspas decorativas -->
+              <p
+                class="absolute top-4 right-6 select-none leading-none"
+                style="font-family: var(--font-display); font-style: italic; font-size: 5.5rem; color: var(--color-gold-500); opacity: 0.18; line-height: 1;"
+                aria-hidden="true"
+              >
+                "
+              </p>
+
+              <!-- Estrelas -->
+              <div
+                class="flex gap-1 mb-5"
+                aria-label={`${testimonial.rating} de 5 estrelas`}
+                role="img"
+              >
+                {Array.from({ length: testimonial.rating }).map(() => (
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    style="color: var(--color-gold-400);"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                ))}
+              </div>
+
+              <!-- Tag do serviço -->
+              <span
+                style="display: inline-block; font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.7rem; border: 1px solid rgba(201,169,110,0.3); color: var(--color-gold-500); margin-bottom: 1.25rem; width: fit-content;"
+              >
+                {testimonial.service}
+              </span>
+
+              <!-- Texto -->
+              <blockquote
+                class="flex-1 relative"
+                style="color: rgba(255,255,255,0.6); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.8; margin-bottom: 1.5rem;"
+              >
+                {testimonial.text}
+              </blockquote>
+
+              <!-- Autor -->
+              <footer
+                class="flex items-center gap-4 pt-5"
+                style="border-top: 1px solid rgba(255,255,255,0.06);"
+              >
+                <div
+                  class="w-9 h-9 flex items-center justify-center shrink-0"
+                  style="background: rgba(201,169,110,0.15); color: var(--color-gold-400); font-family: var(--font-display); font-size: 1rem; font-weight: 400;"
+                  aria-hidden="true"
+                >
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div>
+                  <p style="font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: white;">
+                    {testimonial.name}
+                  </p>
+                  <p style="font-family: var(--font-body); font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.1rem;">
+                    {testimonial.role}
+                  </p>
+                </div>
+              </footer>
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- Navegação -->
+      <div class="flex justify-center gap-3 mt-10" role="group" aria-label="Navegação do carrossel">
+        <button
+          id="prev-btn"
+          class="w-10 h-10 flex items-center justify-center transition-all duration-200 disabled:opacity-30"
+          style="border: 1px solid rgba(201,169,110,0.3); color: var(--color-gold-400); background: transparent;"
+          aria-label="Depoimento anterior"
+          disabled
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+
+        <div id="indicators" class="flex items-center gap-2" role="tablist" aria-label="Indicadores de posição">
+          {TESTIMONIALS.map((_, i) => (
+            <button
+              class="indicator transition-all duration-300"
+              style={`height: 2px; width: ${i === 0 ? "24px" : "12px"}; background: ${i === 0 ? "var(--color-gold-500)" : "rgba(255,255,255,0.2)"}; border: none; cursor: pointer;`}
+              aria-label={`Ir para depoimento ${i + 1}`}
+              aria-selected={i === 0}
+              role="tab"
+              data-index={i}
+            />
+          ))}
+        </div>
+
+        <button
+          id="next-btn"
+          class="w-10 h-10 flex items-center justify-center transition-all duration-200"
+          style="border: 1px solid rgba(201,169,110,0.3); color: var(--color-gold-400); background: transparent;"
+          aria-label="Próximo depoimento"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const inner = document.getElementById("testimonials-inner") as HTMLElement;
+  const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
+  const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
+  const indicators = document.querySelectorAll<HTMLButtonElement>(".indicator");
+  const total = indicators.length;
+
+  let current = 0;
+  let itemsPerView = 1;
+
+  const getItemsPerView = () => {
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 640) return 2;
+    return 1;
+  };
+
+  const getCardWidth = () => {
+    const container = inner.parentElement!;
+    const gap = 20;
+    itemsPerView = getItemsPerView();
+    return (container.offsetWidth - gap * (itemsPerView - 1)) / itemsPerView + gap;
+  };
+
+  const goTo = (index: number) => {
+    const maxIndex = total - itemsPerView;
+    current = Math.max(0, Math.min(index, maxIndex));
+    const offset = current * getCardWidth();
+    inner.style.transform = `translateX(-${offset}px)`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= maxIndex;
+
+    indicators.forEach((ind, i) => {
+      const active = i === current;
+      ind.style.width = active ? "24px" : "12px";
+      ind.style.background = active ? "var(--color-gold-500)" : "rgba(255,255,255,0.2)";
+      ind.setAttribute("aria-selected", String(active));
+    });
+  };
+
+  prevBtn.addEventListener("click", () => goTo(current - 1));
+  nextBtn.addEventListener("click", () => goTo(current + 1));
+  indicators.forEach((btn) => {
+    btn.addEventListener("click", () => goTo(Number(btn.dataset.index)));
+  });
+
+  let autoplay = setInterval(() => {
+    goTo(current + itemsPerView >= total ? 0 : current + 1);
+  }, 6000);
+
+  inner.parentElement!.addEventListener("mouseenter", () => clearInterval(autoplay));
+  inner.parentElement!.addEventListener("mouseleave", () => {
+    autoplay = setInterval(() => {
+      goTo(current + itemsPerView >= total ? 0 : current + 1);
+    }, 6000);
+  });
+
+  let startX = 0;
+  inner.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  inner.addEventListener("touchend", (e) => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? goTo(current + 1) : goTo(current - 1);
+  });
+
+  window.addEventListener("resize", () => goTo(current));
+  goTo(0);
+</script>

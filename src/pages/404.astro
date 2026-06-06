@@ -1,0 +1,44 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro";
+import FloatingWhatsApp from "@components/FloatingWhatsApp.astro";
+---
+
+<Layout
+  title="Página não encontrada"
+  description="A página que você procura não existe."
+  noindex={true}
+>
+  <Navbar />
+
+  <main
+    id="main-content"
+    tabindex="-1"
+    class="min-h-screen flex items-center justify-center section-padding"
+    style="background: var(--color-cream-50);"
+  >
+    <div class="container-site text-center">
+      <p
+        class="font-serif mb-4"
+        style="font-size: clamp(5rem, 15vw, 12rem); color: var(--color-nude-200); line-height: 1;"
+        aria-hidden="true"
+      >
+        404
+      </p>
+      <h1 class="font-serif text-3xl mb-4" style="color: var(--color-charcoal-800);">
+        Página não encontrada
+      </h1>
+      <p class="mb-10 max-w-md mx-auto" style="color: var(--color-charcoal-400);">
+        Ops! A página que você procura não existe ou foi movida.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/" class="btn-primary">Voltar ao início</a>
+        <a href="/contato" class="btn-secondary">Entrar em contato</a>
+      </div>
+    </div>
+  </main>
+
+  <FloatingWhatsApp />
+  <Footer />
+</Layout>

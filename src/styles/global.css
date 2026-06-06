@@ -1,0 +1,462 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   GLOBAL STYLES — Dra. Nayara Tofoli — Harmonização Facial e Orelhas
+   Paleta: Dourado Nude #C9A96E — Clínica Médico-Estética de Luxo
+   Tailwind CSS v4 com @theme customizado
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Fontes do Google — DEVE vir ANTES de @import "tailwindcss" */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap");
+
+@import "tailwindcss";
+
+
+/* ── Design Tokens — Paleta Clínica Premium ───────────────────────────────── */
+@theme {
+  /* Tipografia editorial */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+
+  /* Dourado Nude — sofisticação clínica */
+  --color-gold-50:  #fdf9f3;
+  --color-gold-100: #f7eedf;
+  --color-gold-200: #eddcbc;
+  --color-gold-300: #dfc490;
+  --color-gold-400: #cfa96a;
+  --color-gold-500: #C9A96E;
+  --color-gold-600: #b8924f;
+  --color-gold-700: #9a7540;
+  --color-gold-800: #7d5e37;
+  --color-gold-900: #5c4129;
+
+  /* Off-white frio — limpeza clínica */
+  --color-cream-50:  #ffffff;
+  --color-cream-100: #F8F7F5;
+  --color-cream-200: #EFEDE9;
+  --color-cream-300: #E3E0DA;
+  --color-cream-400: #d0ccc4;
+  --color-cream-500: #b8b3a9;
+
+  /* Verde-sálvia discreto — saúde e naturalidade */
+  --color-rose-50:  #f4f6f4;
+  --color-rose-100: #e4ebe5;
+  --color-rose-200: #c8d6ca;
+  --color-rose-300: #a4bca7;
+  --color-rose-400: #8A9E8C;
+  --color-rose-500: #6f8672;
+  --color-rose-600: #586c5b;
+
+  /* Nude neutro — complementar */
+  --color-nude-50: #fdf8f5;
+  --color-nude-100: #f9f0e9;
+  --color-nude-200: #f2e0d0;
+  --color-nude-300: #e8ccb5;
+  --color-nude-400: #dbb596;
+  --color-nude-500: #cca07c;
+  --color-nude-600: #b8865f;
+  --color-nude-700: #9a6d4a;
+  --color-nude-800: #7d5639;
+  --color-nude-900: #5e3e29;
+
+  /* Charcoal frio — autoridade clínica */
+  --color-charcoal-50:  #f6f6f7;
+  --color-charcoal-100: #e1e2e4;
+  --color-charcoal-200: #c2c4c8;
+  --color-charcoal-300: #9b9ea4;
+  --color-charcoal-400: #6b6f78;
+  --color-charcoal-500: #4a4e57;
+  --color-charcoal-600: #383c44;
+  --color-charcoal-700: #2a2d34;
+  --color-charcoal-800: #1C1C1E;
+  --color-charcoal-900: #0f0f11;
+
+  /* Branco e preto puros */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Sombras elegantes — RGB de #C9A96E = 201, 169, 110 */
+  --shadow-soft:   0 2px 20px rgba(201, 169, 110, 0.08);
+  --shadow-medium: 0 4px 40px rgba(201, 169, 110, 0.14);
+  --shadow-large:  0 8px 60px rgba(201, 169, 110, 0.18);
+  --shadow-gold:   0 4px 24px rgba(201, 169, 110, 0.30);
+
+  /* Border radius */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-xl:   32px;
+  --radius-2xl:  48px;
+  --radius-pill: 9999px;
+
+  /* Transições */
+  --transition-fast:    150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base:    250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:    400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-elegant: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Reset e base ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream-100);
+  color: var(--color-charcoal-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Tipografia editorial ─────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-charcoal-800);
+}
+
+h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+h3 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); }
+h4 { font-size: clamp(1.15rem, 2vw, 1.6rem); }
+
+p {
+  font-family: var(--font-body);
+  color: var(--color-charcoal-500);
+  line-height: 1.75;
+}
+
+/* ── Links ────────────────────────────────────────────────────────────────── */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+/* ── Imagens ──────────────────────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Seleção de texto ─────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-gold-200);
+  color: var(--color-charcoal-800);
+}
+
+/* ── Scrollbar customizada ────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-cream-200); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-400);
+  border-radius: var(--radius-pill);
+}
+
+/* ── Utilitários personalizados ───────────────────────────────────────────── */
+
+/* Container padrão */
+.container-site {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 2.5rem);
+}
+
+/* Seção espaçada */
+.section-padding {
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+
+/* Gradiente premium clínico */
+.bg-premium {
+  background: linear-gradient(
+    135deg,
+    var(--color-cream-100) 0%,
+    var(--color-cream-200) 100%
+  );
+}
+
+/* Gradiente dourado */
+.bg-gold {
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-500) 0%,
+    var(--color-gold-700) 100%
+  );
+}
+
+/* Texto gradiente dourado */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-gold-500), var(--color-gold-700));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card premium — fundo claro */
+.card-premium {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.card-premium:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+/* Card dark — serviços */
+.card-dark {
+  background: var(--color-charcoal-800);
+  border-radius: var(--radius-lg);
+  border-top: 2px solid var(--color-gold-500);
+  transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+}
+
+.card-dark:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  border-color: var(--color-gold-400);
+  border-width: 2px;
+  border-style: solid;
+}
+
+/* Botão primário — dourado sólido, premium */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.25rem;
+  background: var(--color-gold-500);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 0;
+  border: 1px solid var(--color-gold-500);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--color-gold-600);
+  border-color: var(--color-gold-600);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(201,169,110,0.3);
+}
+
+/* Botão secundário — borda dourada sobre fundo claro */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.25rem;
+  background: transparent;
+  color: var(--color-charcoal-700);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 0;
+  border: 1px solid var(--color-charcoal-300);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-gold-500);
+  color: var(--color-gold-600);
+  transform: translateY(-1px);
+}
+
+/* Botão hero secundário — sobre fundo claro */
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: transparent;
+  color: var(--color-charcoal-600);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-charcoal-200);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.btn-hero-secondary:hover {
+  border-color: var(--color-gold-500);
+  color: var(--color-gold-600);
+  transform: translateY(-1px);
+}
+
+/* Linha divisória dourada */
+.divider-elegant {
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold-400);
+  margin-inline: auto;
+}
+
+/* Label de seção */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold-600);
+}
+
+/* Placeholder de imagem */
+.img-placeholder {
+  background: linear-gradient(
+    135deg,
+    var(--color-cream-200) 0%,
+    var(--color-gold-100) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold-500);
+  font-size: 2rem;
+}
+
+/* Número editorial */
+.editorial-number {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-gold-200);
+  letter-spacing: -0.02em;
+}
+
+/* Badge clínico */
+.badge-clinic {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  color: var(--color-gold-600);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Moldura editorial de foto */
+.photo-editorial {
+  position: relative;
+}
+
+.photo-editorial::after {
+  content: '';
+  position: absolute;
+  inset: -8px -8px 8px 8px;
+  border: 1px solid var(--color-gold-400);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Hero overlay mínimo ─────────────────────────────────────────────────── */
+.hero-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(28, 28, 30, 0.75) 0%,
+    rgba(28, 28, 30, 0.4) 60%,
+    transparent 100%
+  );
+}
+
+/* ── Animações ────────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.7s var(--transition-elegant) both; }
+.animate-fade-in    { animation: fadeIn 0.5s ease both; }
+.animate-float      { animation: float 5s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ── Scroll reveal ────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Foco acessível ───────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+/* ── Toast ────────────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--color-charcoal-800);
+  color: white;
+  padding: 1rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  z-index: 9999;
+  transition: transform 0.3s ease;
+  box-shadow: var(--shadow-large);
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}

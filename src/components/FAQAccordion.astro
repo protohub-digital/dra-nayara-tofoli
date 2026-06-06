@@ -1,0 +1,135 @@
+---
+import { FAQ } from "@data/site";
+
+interface Props {
+  title?: string;
+  maxItems?: number;
+}
+
+const { title = "Perguntas frequentes", maxItems = FAQ.length } = Astro.props;
+const items = FAQ.slice(0, maxItems);
+---
+
+<section class="section-padding" style="background: var(--color-cream-100);" aria-labelledby="faq-heading">
+  <div class="container-site">
+    <div class="max-w-2xl mx-auto">
+      <!-- Cabeçalho -->
+      <div class="text-center mb-12 reveal">
+        <p class="section-label mb-5">FAQ</p>
+        <div class="divider-elegant mb-8" style="margin-inline: auto;"></div>
+        <h2
+          id="faq-heading"
+          style="color: var(--color-charcoal-800); font-family: var(--font-display);"
+        >
+          {title}
+        </h2>
+      </div>
+
+      <!-- Accordion -->
+      <div class="space-y-0" role="list" aria-label="Perguntas frequentes">
+        {
+          items.map((item, index) => (
+            <div
+              class="faq-item reveal"
+              style={`border-bottom: 1px solid var(--color-gold-300); animation-delay: ${index * 60}ms;`}
+              role="listitem"
+            >
+              <button
+                class="faq-trigger w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer bg-transparent border-none"
+                aria-expanded="false"
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-trigger-${index}`}
+              >
+                <span
+                  style="color: var(--color-charcoal-700); font-family: var(--font-body); font-size: 0.95rem; font-weight: 400; line-height: 1.5;"
+                >
+                  {item.question}
+                </span>
+                <!-- Ícone de expand — linha fina SVG -->
+                <span
+                  class="faq-icon shrink-0 w-7 h-7 flex items-center justify-center transition-all duration-300"
+                  style="color: var(--color-gold-500);"
+                  aria-hidden="true"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="faq-plus transition-all duration-300">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                </span>
+              </button>
+
+              <div
+                class="faq-answer overflow-hidden transition-all duration-300"
+                style="max-height: 0;"
+                id={`faq-answer-${index}`}
+                role="region"
+                aria-labelledby={`faq-trigger-${index}`}
+                hidden
+              >
+                <div
+                  class="pb-5"
+                  style="background: var(--color-cream-100);"
+                >
+                  <p style="color: var(--color-charcoal-500); font-family: var(--font-body); font-size: 0.875rem; line-height: 1.85;">
+                    {item.answer}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mt-12 reveal">
+        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-charcoal-400); margin-bottom: 1.25rem;">
+          Ainda tem dúvidas? Fale com a Dra. Nayara diretamente pelo WhatsApp.
+        </p>
+        <a href="/contato" class="btn-secondary">
+          Entrar em contato
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const triggers = document.querySelectorAll<HTMLButtonElement>(".faq-trigger");
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+      const item = trigger.closest(".faq-item")!;
+      const answer = item.querySelector<HTMLElement>(".faq-answer")!;
+      const icon = trigger.querySelector<SVGElement>(".faq-plus")!;
+
+      triggers.forEach((t) => {
+        if (t !== trigger) {
+          const otherItem = t.closest(".faq-item")!;
+          const otherAnswer = otherItem.querySelector<HTMLElement>(".faq-answer")!;
+          const otherIcon = t.querySelector<SVGElement>(".faq-plus")!;
+          t.setAttribute("aria-expanded", "false");
+          otherAnswer.style.maxHeight = "0";
+          otherAnswer.hidden = true;
+          otherIcon.style.transform = "";
+          otherIcon.style.opacity = "1";
+        }
+      });
+
+      if (isExpanded) {
+        trigger.setAttribute("aria-expanded", "false");
+        answer.style.maxHeight = "0";
+        setTimeout(() => { answer.hidden = true; }, 300);
+        icon.style.transform = "";
+      } else {
+        trigger.setAttribute("aria-expanded", "true");
+        answer.hidden = false;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            answer.style.maxHeight = `${answer.scrollHeight}px`;
+          });
+        });
+        icon.style.transform = "rotate(45deg)";
+      }
+    });
+  });
+</script>
