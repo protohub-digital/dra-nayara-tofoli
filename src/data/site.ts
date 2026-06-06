@@ -366,7 +366,7 @@ export const DIFERENCIAIS = [
     icon: "02",
     title: "Resultados que Falam",
     description:
-      "4,9 ⭐ no Google com 58 avaliações reais de pacientes satisfeitos. Uma nota que não se compra — se constrói com cada atendimento, cada resultado, cada pessoa que sai transformada.",
+      "4,9/5 no Google com 58 avaliações reais de pacientes satisfeitos. Uma nota que não se compra — se constrói com cada atendimento, cada resultado, cada pessoa que sai transformada.",
   },
   {
     icon: "03",
@@ -420,6 +420,7 @@ Sua filosofia é clara: cada rosto conta uma história, e o papel do profissiona
   ],
   experience: "5+",
   clients: "500+",
+  countries: "6",
   satisfaction: "98%",
 } as const;
 

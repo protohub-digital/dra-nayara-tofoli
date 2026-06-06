@@ -1,11 +1,18 @@
 ---
 import { SITE } from "@data/site";
 
-// Placeholders de posts do Instagram (substituir por API real ou plugin)
+const instagramIcons = [
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+];
 const placeholderPosts = Array.from({ length: 6 }, (_, i) => ({
   id: i + 1,
   alt: `Post ${i + 1} — ${SITE.instagramHandle}`,
-  emoji: ["👁️", "✨", "🌸", "💄", "🌟", "💎"][i],
+  icon: instagramIcons[i],
 }));
 ---
 
@@ -67,9 +74,7 @@ const placeholderPosts = Array.from({ length: 6 }, (_, i) => ({
             aria-label={`Ver post: ${post.alt}`}
             role="listitem"
           >
-            <span class="text-3xl opacity-30 group-hover:opacity-10 transition-opacity duration-300" aria-hidden="true">
-              {post.emoji}
-            </span>
+            <span class="opacity-25 group-hover:opacity-10 transition-opacity duration-300" style="color:var(--color-gold-600);" aria-hidden="true" set:html={post.icon} />
 
             <!-- Overlay no hover -->
             <div

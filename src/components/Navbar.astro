@@ -1,12 +1,18 @@
 ---
 import { SITE, NAV_LINKS } from "@data/site";
 const { pathname } = Astro.url;
+
+interface Props {
+  dark?: boolean;
+}
+const { dark = false } = Astro.props;
 ---
 
 <header
   id="navbar"
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
   role="banner"
+  data-dark={dark ? "true" : "false"}
 >
   <!-- Barra superior premium -->
   <div
@@ -153,6 +159,16 @@ const { pathname } = Astro.url;
   const menuToggle = document.getElementById("menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
 
+  const navbarEl = document.getElementById("navbar");
+  const isDark = navbarEl?.dataset.dark === "true";
+
+  const lightLogoColor    = "var(--color-charcoal-800)";
+  const lightNavColor     = "var(--color-charcoal-600)";
+  const lightHamburger    = "var(--color-charcoal-700)";
+  const darkLogoColor     = "white";
+  const darkNavColor      = "rgba(255,255,255,0.85)";
+  const darkHamburger     = "white";
+
   // Scroll: tornar navbar sólida após 80px
   const updateNavbar = () => {
     const scrolled = window.scrollY > 80;
@@ -161,19 +177,19 @@ const { pathname } = Astro.url;
       navbarInner?.style.setProperty("backdrop-filter", "blur(12px)");
       navbarInner?.style.setProperty("border-bottom", "1px solid rgba(220, 201, 181, 0.4)");
       navbarInner?.style.setProperty("box-shadow", "0 2px 20px rgba(180, 120, 100, 0.08)");
-      if (logoName) { logoName.style.color = "var(--color-charcoal-800)"; }
+      if (logoName) { logoName.style.color = lightLogoColor; }
       if (logoTagline) { logoTagline.style.color = "var(--color-gold-500)"; }
-      navLinks.forEach((l) => { l.style.color = "var(--color-charcoal-600)"; });
-      hamburgerLines.forEach((l) => { l.style.background = "var(--color-charcoal-700)"; });
+      navLinks.forEach((l) => { l.style.color = lightNavColor; });
+      hamburgerLines.forEach((l) => { l.style.background = lightHamburger; });
     } else {
       navbarInner?.style.setProperty("background", "transparent");
       navbarInner?.style.setProperty("backdrop-filter", "none");
       navbarInner?.style.setProperty("border-bottom", "none");
       navbarInner?.style.setProperty("box-shadow", "none");
-      if (logoName) { logoName.style.color = "var(--color-charcoal-800)"; }
+      if (logoName) { logoName.style.color = isDark ? darkLogoColor : lightLogoColor; }
       if (logoTagline) { logoTagline.style.color = "var(--color-gold-500)"; }
-      navLinks.forEach((l) => { l.style.color = "var(--color-charcoal-600)"; });
-      hamburgerLines.forEach((l) => { l.style.background = "var(--color-charcoal-700)"; });
+      navLinks.forEach((l) => { l.style.color = isDark ? darkNavColor : lightNavColor; });
+      hamburgerLines.forEach((l) => { l.style.background = isDark ? darkHamburger : lightHamburger; });
     }
   };
 

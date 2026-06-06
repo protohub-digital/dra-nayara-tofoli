@@ -13,11 +13,11 @@ const whatsappUrl = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SI
   <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold-600), transparent);" aria-hidden="true"></div>
 
   <!-- Conteúdo principal -->
-  <div class="container-site py-16">
-    <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+  <div class="container-site py-10 md:py-16">
+    <div class="grid gap-8 md:gap-12 grid-cols-2 lg:grid-cols-4">
 
       <!-- Coluna 1: Identidade -->
-      <div class="lg:col-span-2">
+      <div class="col-span-2 lg:col-span-2">
         <a
           href="/"
           class="inline-flex flex-col mb-6"
@@ -35,8 +35,11 @@ const whatsappUrl = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SI
           </span>
         </a>
 
-        <p style="font-family: var(--font-body); font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.4); max-width: 280px; margin-bottom: 1.75rem;">
+        <p style="font-family: var(--font-body); font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.4); max-width: 280px; margin-bottom: 1.25rem; display: none;" class="md:block">
           {SITE.description}
+        </p>
+        <p class="md:hidden" style="font-family: var(--font-body); font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.4); max-width: 100%; margin-bottom: 1rem;">
+          Harmonização Facial e Otomoldação — Colatina, ES
         </p>
 
         <!-- CRO Badge -->

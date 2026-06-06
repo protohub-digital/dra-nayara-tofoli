@@ -178,7 +178,13 @@ img {
 
 /* Seção espaçada */
 .section-padding {
-  padding-block: clamp(5rem, 11vw, 9rem);
+  padding-block: clamp(3.5rem, 8vw, 9rem);
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-block: clamp(5rem, 11vw, 9rem);
+  }
 }
 
 /* Gradiente premium clínico */

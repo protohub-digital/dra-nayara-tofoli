@@ -81,7 +81,7 @@ const { compact = false } = Astro.props;
 
         <!-- Stats — 4 pilares -->
         <div
-          class="grid grid-cols-2 sm:grid-cols-4 gap-px mb-10"
+          class="grid grid-cols-2 sm:grid-cols-4 gap-px mb-6"
           style="background: var(--color-cream-300);"
           aria-label="Estatísticas da clínica"
         >
@@ -89,20 +89,37 @@ const { compact = false } = Astro.props;
             { value: ABOUT.experience, label: "Anos" },
             { value: ABOUT.clients, label: "Pacientes" },
             { value: ABOUT.countries, label: "Países" },
-            { value: "4,9 ⭐", label: "Google" },
-          ].map(({ value, label }) => (
+            { value: "4,9", label: "Google", star: true },
+          ].map(({ value, label, star }) => (
             <div class="text-center p-5" style="background: white;">
-              <p style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 300; color: var(--color-gold-600); line-height: 1; margin-bottom: 0.35rem;">{value}</p>
+              <p style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 300; color: var(--color-gold-600); line-height: 1; margin-bottom: 0.35rem; display:flex; align-items:center; justify-content:center; gap:3px;">
+                {value}
+                {star && (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--color-gold-500);flex-shrink:0;" aria-hidden="true">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                )}
+              </p>
               <p style="font-family: var(--font-body); font-size: 0.65rem; color: var(--color-charcoal-400); letter-spacing: 0.15em; text-transform: uppercase;">{label}</p>
             </div>
           ))}
+        </div>
+
+        <!-- Badge CRO-ES abaixo dos stats -->
+        <div class="mb-8 inline-flex items-center gap-2" style="border: 1px solid rgba(201,169,110,0.3); padding: 0.4rem 0.9rem; background: var(--color-gold-50);">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-600)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span style="font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-gold-700);">
+            CRO-ES 7253
+          </span>
         </div>
 
         <!-- Certificações -->
         {!compact && (
           <div class="mb-10">
             <div class="flex flex-wrap gap-2">
-              {ABOUT.certifications.map((cert) => (
+              {ABOUT.certifications.filter(c => c !== "CRO-ES 7253").map((cert) => (
                 <span
                   style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.3rem 0.8rem; border: 1px solid var(--color-gold-300); color: var(--color-gold-700); background: var(--color-gold-50);"
                 >
